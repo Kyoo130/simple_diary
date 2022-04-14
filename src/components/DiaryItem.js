@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const DiaryItem = ({ author, content, emotion, created_date }) => {
+const DiaryItem = ({ id, author, content, emotion, created_date, onDelete }) => {
   return (
     <ItemCont>
       <InfoCont>
@@ -12,6 +12,12 @@ const DiaryItem = ({ author, content, emotion, created_date }) => {
         <InfoDate>{new Date(created_date).toLocaleString()}</InfoDate>
       </InfoCont>
       <ContentBox>{content}</ContentBox>
+      <button onClick={() => {
+        console.log(id)
+        if(window.confirm(`${id}번째 일기를 정말 삭제하시겠습니까?`)){
+          onDelete(id);
+        }
+      }}>삭제하기</button>
     </ItemCont>
   );
 };

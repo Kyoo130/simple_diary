@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import {Editor, DiaryList} from "./components";
+import { Editor, DiaryList } from "./components";
 
 function App() {
   const [data, setData] = useState([]);
@@ -13,15 +13,21 @@ function App() {
       emotion,
       created_date,
       id: dataID.current,
-    }
+    };
     dataID.current += 1;
     setData([newItem, ...data]);
-  }
+  };
+
+  const onDelete = (targetId) => {
+    console.log(`${targetId}가 삭제되었습니다.`);
+    const newDiaryList = data.filter((it) => it.id !== targetId);
+    setData(newDiaryList);
+  };
 
   return (
     <div className="App">
       <Editor onCreate={onCreate} />
-      <DiaryList diaryList={data} />
+      <DiaryList onDelete={onDelete} diaryList={data} />
     </div>
   );
 }
