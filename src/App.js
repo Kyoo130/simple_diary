@@ -1,9 +1,10 @@
 import './App.css';
+import Editor from "./components/Editor";
 
 function App() {
   return (
     <div className="App">
-      <h1>나의 일기장</h1>
+      <Editor />
     </div>
   );
 }
