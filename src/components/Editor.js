@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
-const Editor = () => {
+const Editor = ({onCreate}) => {
   const authorInput = useRef();
   const contentInput = useRef();
 
@@ -29,8 +29,13 @@ const Editor = () => {
       contentInput.current.focus();
       return;
     }
-
+    onCreate(state.author, state.content, state.emotion);
     alert("저장 성공");
+    setState({
+      author: "",
+      content: "",
+      emotion: 1,
+    })
   };
 
   return (

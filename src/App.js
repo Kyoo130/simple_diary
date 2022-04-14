@@ -1,36 +1,27 @@
-import './App.css';
+import React, { useState, useRef } from "react";
 import {Editor, DiaryList} from "./components";
 
-const dummyList = [
-  {
-    id: 1,
-    author: "Kyoo1",
-    content: "hi 1",
-    emotion: 1,
-    created_date: new Date().getTime()
-  },
-  {
-    id: 2,
-    author: "Kyoo3",
-    content: "hi 3",
-    emotion: 2,
-    created_date: new Date().getTime()
-  },
-  {
-    id: 3,
-    author: "Kyoo3",
-    content: "hi 3",
-    emotion: 3,
-    created_date: new Date().getTime()
-  },
-]
-
-
 function App() {
+  const [data, setData] = useState([]);
+  const dataID = useRef(0);
+
+  const onCreate = (author, content, emotion) => {
+    const created_date = new Date().getTime();
+    const newItem = {
+      author,
+      content,
+      emotion,
+      created_date,
+      id: dataID.current,
+    }
+    dataID.current += 1;
+    setData([newItem, ...data]);
+  }
+
   return (
     <div className="App">
-      <Editor />
-      <DiaryList diaryList={dummyList} />
+      <Editor onCreate={onCreate} />
+      <DiaryList diaryList={data} />
     </div>
   );
 }
