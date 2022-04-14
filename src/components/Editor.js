@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
 const Editor = () => {
+  const authorInput = useRef();
+  const contentInput = useRef();
+
   const [state, setState] = useState({
     author: "",
     content: "",
@@ -16,7 +19,17 @@ const Editor = () => {
   };
 
   const handleSubmit = () => {
-    console.log(state);
+    if (state.author.length < 1) {
+      alert("작성자는 최소 1글자 이상 입력해주세요.");
+      authorInput.current.focus();
+      return;
+    }
+    if (state.content.length < 5) {
+      alert("일기 본문은 최소 5글자 이상 입력해주세요.");
+      contentInput.current.focus();
+      return;
+    }
+
     alert("저장 성공");
   };
 
@@ -29,6 +42,7 @@ const Editor = () => {
           type="text"
           value={state.author}
           onChange={handleChangeState}
+          ref={authorInput}
         />
       </div>
       <div>
@@ -36,6 +50,7 @@ const Editor = () => {
           name="content"
           value={state.content}
           onChange={handleChangeState}
+          ref={contentInput}
         />
       </div>
       <div>
@@ -63,28 +78,29 @@ const DiaryEditor = styled.div`
   border: 1px solid #bdbdbd;
   text-align: center;
   padding: 20px;
-  
-  & input, textarea {
+
+  & input,
+  textarea {
     margin-bottom: 20px;
     width: 500px;
     padding: 10px;
   }
-  
+
   & textarea {
     height: 150px;
   }
-  
+
   & select {
     width: 300px;
     padding: 10px;
     margin-bottom: 20px;
   }
-  
+
   & button {
     width: 500px;
     padding: 10px;
     cursor: pointer;
   }
-`
+`;
 
 export default Editor;
